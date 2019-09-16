@@ -1,8 +1,3 @@
-# safflower.py
-
-## Blind Class
-
-```python3
 #!/usr/bin/env python3
 import safflower
 
@@ -48,6 +43,3 @@ try:
 	hexdump.hexdump(res.encode())
 except:
 	print(res)
-```
-
-Demo Code of Blind SQL Injection
