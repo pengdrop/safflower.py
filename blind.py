@@ -16,7 +16,7 @@ class blind():
 		return
 
 
-	def leak(self, compare_function, max_length = 100, letter_table = MULTI_BYTES, use_logging = True, use_asynchronous = True):
+	def leak(self, compare_function, start_index = 0, max_length = 100, letter_table = MULTI_BYTES, use_logging = True, use_asynchronous = True):
 		self.compare_function = compare_function
 		self.captured_letters = ["\u3000"] * max_length
 		self.letter_table = ["\x00"] + letter_table + ["\x00"]
@@ -26,7 +26,7 @@ class blind():
 		if self.use_asynchronous:
 			thread_list = []
 
-			for i in range(max_length):
+			for i in range(start_index, max_length):
 				t = threading.Thread(target = self.capture_letter, args = (i, ))
 				t.start()
 				thread_list.append(t)
@@ -48,7 +48,7 @@ class blind():
 			del thread_list
 
 		else:
-			for i in range(max_length):
+			for i in range(start_index, max_length):
 				if self.capture_letter(i) == "\x00":
 					break
 

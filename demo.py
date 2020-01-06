@@ -18,6 +18,7 @@ def example(i, c):
 blind = safflower.blind()
 res = blind.leak(
 	compare_function = example,
+	start_index = 0,
 	max_length = 10,
 	letter_table = blind.MULTI_BYTES,
 	use_logging = True,
